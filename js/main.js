@@ -19,7 +19,6 @@ const button = document.querySelector('.js-button');
 const msg = document.querySelector('.js-msg');
 const userCount = document.querySelector('.js-userCount');
 const computerCount = document.querySelector('.js-computerCount');
-const winner = document.querySelector('.js-winner');
 const reset = document.querySelector('.js-reset');
 
 
@@ -50,21 +49,21 @@ function compareResults(userSelection, computerSelection) {
     ) {
         msg.innerHTML = `¡Has ganado! El ordenador ha elegido ${computerSelection}`;
 
-        userCount.innerHTML = parseInt(userCount.textContent) + 1;
+        userCount.innerHTML = parseInt(userCount.textContent) + 1; //esto que he hecho aquí no es una buena práctica y tengo que intentar evitarlo aunque funcione, lo correcto sería haber creado una variable let global para almacenar la puntuación de la usuaria, en esta parte del if llamar a la variable y poner ++ y luego hacer "userCount.innerHTML = `Jugadora: ${variable contador}`"
     } else {
         msg.innerHTML = `¡Has perdido! El ordenador ha elegido ${computerSelection}`;
        
-        computerCount.innerHTML = parseInt(computerCount.textContent) + 1
+        computerCount.innerHTML = parseInt(computerCount.textContent) + 1; //esto que he hecho aquí no es una buena práctica y tengo que intentar evitarlo aunque funcione, lo correcto sería haber creado una variable let global para almacenar la puntuación del ordenador, en esta parte del else llamar a la variable y poner ++ y luego hacer "computerCount.innerHTML = `Jugadora: ${variable contador}`"
     }
 }
 
 function checkWinner (userCount, computerCount) {
     if (userCount > computerCount) {
-        winner.innerHTML = "¡Has ganado la partida!"
+        msg.innerHTML = "¡Has ganado la partida!"
     } else if (computerCount > userCount) {
-        winner.innerHTML = "¡Has perdido la partida!"
+        msg.innerHTML = "¡Has perdido la partida!"
     } else {
-         winner.innerHTML = "¡Has empatado la partida!"
+        msg.innerHTML = "¡Has empatado la partida!"
     }
 }
 
@@ -113,7 +112,6 @@ function resetGame() {
     msg.innerHTML = '¡Vámos a jugar!'
     userCount.innerHTML = 0;
     computerCount.innerHTML = 0;
-    winner.innerHTML = '';
     movements = 1;
 }
 
