@@ -39,19 +39,23 @@ function computerSelection() {
     return randomSelection
 }
 
+function paintResult(message) {
+    msg.innerHTML = message;
+}
+
 function compareResults(userSelection, computerSelection) {
     if (userSelection === computerSelection) {
-        msg.innerHTML = `Empate. Los dos habéis elegido ${userSelection}`;
+       paintResult(`Empate. Los dos habéis elegido ${userSelection}`);
     } else if (
         userSelection === 'tijera' && computerSelection === 'papel' || 
         userSelection === 'papel' && computerSelection === 'piedra' || 
         userSelection === 'piedra' && computerSelection === 'tijera'
     ) {
-        msg.innerHTML = `¡Has ganado! El ordenador ha elegido ${computerSelection}`;
+        paintResult(`¡Has ganado! El ordenador ha elegido ${computerSelection}`);
 
         userCount.innerHTML = parseInt(userCount.textContent) + 1; //esto que he hecho aquí no es una buena práctica y tengo que intentar evitarlo aunque funcione, lo correcto sería haber creado una variable let global para almacenar la puntuación de la usuaria, en esta parte del if llamar a la variable y poner ++ y luego hacer "userCount.innerHTML = `Jugadora: ${variable contador}`"
     } else {
-        msg.innerHTML = `¡Has perdido! El ordenador ha elegido ${computerSelection}`;
+        paintResult(`¡Has perdido! El ordenador ha elegido ${computerSelection}`);
        
         computerCount.innerHTML = parseInt(computerCount.textContent) + 1; //esto que he hecho aquí no es una buena práctica y tengo que intentar evitarlo aunque funcione, lo correcto sería haber creado una variable let global para almacenar la puntuación del ordenador, en esta parte del else llamar a la variable y poner ++ y luego hacer "computerCount.innerHTML = `Jugadora: ${variable contador}`"
     }
@@ -59,11 +63,11 @@ function compareResults(userSelection, computerSelection) {
 
 function checkWinner (userCount, computerCount) {
     if (userCount > computerCount) {
-        msg.innerHTML = "¡Has ganado la partida!"
+       paintResult("¡Has ganado la partida!");
     } else if (computerCount > userCount) {
-        msg.innerHTML = "¡Has perdido la partida!"
+        paintResult("¡Has perdido la partida!");
     } else {
-        msg.innerHTML = "¡Has empatado la partida!"
+        paintResult("¡Has empatado la partida!");
     }
 }
 
@@ -80,6 +84,15 @@ function endGame() {
     hiddenClass(reset);
 }
 
+function maxMovements() {
+    console.log(movements);
+    if (movements < 10) {
+        movements++;
+    } else {
+        checkWinner(parseInt(userCount.textContent), parseInt(computerCount.textContent));
+        endGame();
+    }
+}
 let movements = 1;
 
 function handleClick(ev) {
@@ -92,14 +105,7 @@ function handleClick(ev) {
         msg.innerHTML = 'Elige Piedra, Papel o Tijera'
         return
     }
-    console.log(movements);
-    if (movements < 10) {
-        movements++;
-    } else {
-        checkWinner(parseInt(userCount.textContent), parseInt(computerCount.textContent));
-        endGame();
-    }
-    
+    maxMovements();
 }
 
 //3
