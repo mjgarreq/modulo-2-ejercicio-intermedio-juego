@@ -68,7 +68,20 @@ function checkWinner (userCount, computerCount) {
     }
 }
 
-let movements = 0;
+function hiddenClass(element) {
+    if (element.classList.contains('hidden')) {
+        element.classList.remove('hidden');
+    } else {
+        element.classList.add('hidden');
+    }
+}
+
+function endGame() {
+    hiddenClass(button);
+    hiddenClass(reset);
+}
+
+let movements = 1;
 
 function handleClick(ev) {
     ev.preventDefault();
@@ -80,16 +93,28 @@ function handleClick(ev) {
         msg.innerHTML = 'Elige Piedra, Papel o Tijera'
         return
     }
-
+    console.log(movements);
     if (movements < 10) {
         movements++;
     } else {
         checkWinner(parseInt(userCount.textContent), parseInt(computerCount.textContent));
+        endGame();
     }
-    console.log(movements);
+    
 }
 
 //3
 button.addEventListener('click', handleClick);
 
+function resetGame() {
+    hiddenClass(button);
+    hiddenClass(reset);
+    select.value = '';
+    msg.innerHTML = '¡Vámos a jugar!'
+    userCount.innerHTML = 0;
+    computerCount.innerHTML = 0;
+    winner.innerHTML = '';
+    movements = 1;
+}
 
+reset.addEventListener('click', resetGame);
